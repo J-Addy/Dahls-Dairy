@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Dahls Dairy</string>
+    <string name="start_route">Start Route</string>
+    <string name="custom_route">Custom Route</string>
+    <string name="routes_button">Routes</string>
+    <string name="customers_button">Customers</string>
+    <string name="whole_sale_button">Wholesale</string>
+    <string name="products_button">Products</string>
+    <string name="sync_button">Sync</string>
+    <string name="admin_button">Admin</string>
+    <string name="routeNumX">route</string>
+    <string name="selectRoute">Select Route</string>
+    <string name="applyPayment">Apply Payment</string>
+    <string name="createInvoice">Create Invoice</string>
+    <string name="clearOrder">Clear Order</string>
+    <string name="decrementButton">-</string>
+    <string name="incrementButton">+</string>
+    <string name="addItemToOrder">Add Item</string>
+    <string name="invoiceDeleteItem">Delete Item</string>
+    <string name="completeInvoice">Complete Invoice</string>
+</resources>

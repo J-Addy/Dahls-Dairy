@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".controllers.MainActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="1000dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/cowprint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+        <Button
+            android:id="@+id/routesButton"
+            android:layout_width="461dp"
+            android:layout_height="88dp"
+            android:layout_marginTop="120dp"
+            android:accessibilityLiveRegion="none"
+            android:background="@color/red_main"
+            android:backgroundTintMode="screen"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/routes_button"
+            android:textColor="#020202"
+            android:textSize="45sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.477"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/wholesaleButton"
+            android:layout_width="461dp"
+            android:layout_height="88dp"
+            android:layout_marginTop="48dp"
+            android:accessibilityLiveRegion="none"
+            android:background="@color/red_main"
+            android:backgroundTintMode="screen"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/whole_sale_button"
+            android:textColor="#020202"
+            android:textSize="45sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.477"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/routesButton" />
+
+        <Button
+            android:id="@+id/customerButton"
+            android:layout_width="461dp"
+            android:layout_height="88dp"
+            android:layout_marginTop="48dp"
+            android:accessibilityLiveRegion="none"
+            android:background="@color/red_main"
+            android:backgroundTintMode="screen"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/customers_button"
+            android:textColor="#020202"
+            android:textSize="45sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.477"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/wholesaleButton" />
+
+        <Button
+            android:id="@+id/productsButton"
+            android:layout_width="461dp"
+            android:layout_height="88dp"
+            android:layout_marginTop="48dp"
+            android:accessibilityLiveRegion="none"
+            android:background="@color/red_main"
+            android:backgroundTintMode="screen"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/products_button"
+            android:textColor="#020202"
+            android:textSize="45sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.477"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/customerButton" />
+
+        <Button
+            android:id="@+id/syncButton"
+            android:layout_width="461dp"
+            android:layout_height="88dp"
+            android:layout_marginTop="48dp"
+            android:accessibilityLiveRegion="none"
+            android:background="@color/red_main"
+            android:backgroundTintMode="screen"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/sync_button"
+            android:textColor="#020202"
+            android:textSize="45sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.477"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/productsButton" />
+
+        <Button
+            android:id="@+id/adminButton"
+            android:layout_width="461dp"
+            android:layout_height="88dp"
+            android:layout_marginTop="48dp"
+            android:accessibilityLiveRegion="none"
+            android:background="@color/red_main"
+            android:backgroundTintMode="screen"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/admin_button"
+            android:textColor="#020202"
+            android:textSize="45sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.477"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/syncButton" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="263dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.034"
+        app:srcCompat="@drawable/dahlsheader"
+        tools:layout_editor_absoluteX="0dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

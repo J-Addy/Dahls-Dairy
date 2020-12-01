@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/cowprint"
+    tools:context=".controllers.CustomerPage">
+
+    <TextView
+        android:id="@+id/customerAddressTextView"
+        android:layout_width="234dp"
+        android:layout_height="83dp"
+        android:background="#FFFFFF"
+        android:text="TextView"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.081"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customerNameTextView"
+        app:layout_constraintVertical_bias="0.016" />
+
+    <TextView
+        android:id="@+id/customerNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="95dp"
+        android:background="#FFFFFF"
+        android:text="TextView"
+        android:textColor="#000000"
+        android:textSize="54sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.021" />
+
+    <TextView
+        android:id="@+id/phoneNumberTextView"
+        android:layout_width="229dp"
+        android:layout_height="31dp"
+        android:background="#FFFFFF"
+        android:text="TextView"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.838"
+        app:layout_constraintStart_toEndOf="@+id/customerAddressTextView"
+        app:layout_constraintTop_toBottomOf="@+id/customerNameTextView"
+        app:layout_constraintVertical_bias="0.024" />
+
+    <TextView
+        android:id="@+id/balanceTextView"
+        android:layout_width="229dp"
+        android:layout_height="31dp"
+        android:background="#FFFFFF"
+        android:text="TextView"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.828"
+        app:layout_constraintStart_toEndOf="@+id/customerAddressTextView"
+        app:layout_constraintTop_toBottomOf="@+id/customerNameTextView"
+        app:layout_constraintVertical_bias="0.069" />
+
+    <TextView
+        android:id="@+id/customerNotesTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="155dp"
+        android:background="#FFFFFF"
+        android:text="TextView"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.469"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customerNameTextView"
+        app:layout_constraintVertical_bias="0.191" />
+
+    <TextView
+        android:id="@+id/notesLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="21dp"
+        android:background="#FFFFFF"
+        android:text="Notes:"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/customerNotesTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.064"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customerAddressTextView"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/googleMapsButton"
+        android:layout_width="199dp"
+        android:layout_height="166dp"
+        android:layout_marginBottom="356dp"
+        android:clickable="true"
+        android:contentDescription="Launches Google Maps to desired route"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.092"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/googlemaps" />
+
+    <Button
+        android:id="@+id/applyPaymentButton"
+        android:layout_width="209dp"
+        android:layout_height="148dp"
+        android:text="@string/applyPayment"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.849"
+        app:layout_constraintStart_toEndOf="@+id/googleMapsButton"
+        app:layout_constraintTop_toBottomOf="@+id/customerNotesTextView"
+        app:layout_constraintVertical_bias="0.113" />
+
+    <Button
+        android:id="@+id/createInvoiceButton"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:text="@string/createInvoice"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customerNotesTextView"
+        app:layout_constraintVertical_bias="0.525" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
