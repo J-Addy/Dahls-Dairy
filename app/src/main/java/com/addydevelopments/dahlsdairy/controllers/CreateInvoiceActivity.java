@@ -11,29 +11,24 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.addydevelopments.dahlsdairy.models.Customer;
+import com.addydevelopments.dahlsdairy.models.DBhelper;
+import com.addydevelopments.dahlsdairy.models.Order;
 import com.addydevelopments.dahlsdairy.models.Product;
 import com.addydevelopments.dahlsdairy.R;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 public class CreateInvoiceActivity extends AppCompatActivity implements FrozenProductsAdapter.FrozenProductClickListener, InvoiceProductListAdapter.ProductClickListener, DahlsProductsAdapter.DahlsProductClickListener, LocalProductsAdapter.LocalProductClickListener {
 
+    //Initialize variables
     private List<Product> dahlsProducts = new ArrayList<>();
     private List<Product> localProducts = new ArrayList<>();
     private List<Product> frozenProducts = new ArrayList<>();
     private List<Product> orderProducts = new ArrayList<>();
     Product tempProduct;
+    Customer customer;
 
     //Sets RecyclerViews/Adapters
     RecyclerView dahlsProductsRecycler;
@@ -53,14 +48,22 @@ public class CreateInvoiceActivity extends AppCompatActivity implements FrozenPr
     Button addItemToOrder, incrementItemQuantity, decrementItemQuantity, clearOrder, deleteItem,
             completeInvoiceButon;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_invoice);
 
+        //Hides actionbar
+        try {
+            this.getSupportActionBar().hide();
+        } catch (NullPointerException e) {
+        }
+
+
         //Gets Customer Data from Customer List Activity
         Intent i = getIntent();
-        final Customer customer = i.getParcelableExtra("Customer");
+        customer = i.getParcelableExtra("Customer");
         invoiceCustomerNameTextView = findViewById(R.id.invoiceNameTextView);
         invoiceCustomerNameTextView.setText(customer.getLastName() + ", " + customer.getFirstName());
 
@@ -81,9 +84,18 @@ public class CreateInvoiceActivity extends AppCompatActivity implements FrozenPr
         deleteItem = findViewById(R.id.invoiceDeleteItem);
         completeInvoiceButon = findViewById(R.id.completeInvoice);
 
-
+        //Initializes on click listeners
         startOnClickButtons();
-        populateProductLists();
+
+        //Gets product data
+        try {
+            populateProductLists();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //initiates recylerviews
         initProductRecyclerViews();
 
 
@@ -126,38 +138,27 @@ public class CreateInvoiceActivity extends AppCompatActivity implements FrozenPr
 
     }
 
+    //Gets product data and sorts it by type
+    public void populateProductLists() throws ExecutionException, InterruptedException {
 
-    public void populateProductLists(){
+        List<Product> tempProducts = new ArrayList<>();
 
-        //Starts a thread to get product data
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        Future<List<Product>> futures = executorService.submit(new GetProductData());
-        executorService.shutdown();
+        DBhelper dBhelper = new DBhelper();
+        tempProducts = dBhelper.getProductJSONS();
+        setTempTotal();
 
-        try{
-            System.out.println("futures size: " + futures.get().size());
-            if(futures.get() != null){
-                for (int i = 0; i < futures.get().size(); i ++){
+        if(tempProducts.size() > 0) {
 
-                    if(futures.get().get(i).getProductType().equals("Dahls")){
-                        dahlsProducts.add(futures.get().get(i));
-                    }
-                    else if (futures.get().get(i).getProductType().equals("Local")){
-                        localProducts.add(futures.get().get(i));
-                    }
-                    else {
-                        frozenProducts.add(futures.get().get(i));
-
-                    }
+            for (int i = 0; i < tempProducts.size(); i++) {
+                if (tempProducts.get(i).getProductType().equals("Dahls")) {
+                    dahlsProducts.add(tempProducts.get(i));
+                } else if (tempProducts.get(i).getProductType().equals("Local")) {
+                    localProducts.add(tempProducts.get(i));
+                } else {
+                    frozenProducts.add(tempProducts.get(i));
                 }
-
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
         }
-
 
     }
 
@@ -166,7 +167,6 @@ public class CreateInvoiceActivity extends AppCompatActivity implements FrozenPr
             @Override
             public void onClick(View v) {
                 if (tempProduct != null){
-
                     if (checkOrderList() == false){
                         orderProducts.add(tempProduct);
                         invoiceProductListAdapter.notifyDataSetChanged();
@@ -180,6 +180,7 @@ public class CreateInvoiceActivity extends AppCompatActivity implements FrozenPr
             }
         });
 
+        //Increments selected item quantity
         incrementItemQuantity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -190,16 +191,21 @@ public class CreateInvoiceActivity extends AppCompatActivity implements FrozenPr
             }
         });
 
+        //Decrements selected item quanity
         decrementItemQuantity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if ((tempProduct != null)){
-                    tempProduct.setQuantity(tempProduct.getQuantity() - 1);
-                    invoiceItemQuantityTextView.setText(tempProduct.getQuantity()+"");
+                    //Sets new quantity but prevents order from having a negative quantity of an item
+                    if(tempProduct.getQuantity() > 0){
+                        tempProduct.setQuantity(tempProduct.getQuantity() - 1);
+                        invoiceItemQuantityTextView.setText(tempProduct.getQuantity() + "");
+                    }
                 }
             }
         });
 
+        //Erases entire order
         clearOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -209,6 +215,7 @@ public class CreateInvoiceActivity extends AppCompatActivity implements FrozenPr
             }
         });
 
+        //Deletes selected item from order
         deleteItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -222,10 +229,17 @@ public class CreateInvoiceActivity extends AppCompatActivity implements FrozenPr
             }
         });
 
+        //Competes the invoice and sends it to the Database
         completeInvoiceButon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                try {
+                    createOrder();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -239,6 +253,7 @@ public class CreateInvoiceActivity extends AppCompatActivity implements FrozenPr
         localProductsAdapter.unClick();
         dahlsListAdapter.unClick();
 
+        //Prepares the product for be added to the list
         tempProduct = orderProducts.get(position);
         invoiceItemName.setText(tempProduct.getProductName());
         invoiceItemQuantityTextView.setText(tempProduct.getQuantity() + "");
@@ -247,43 +262,48 @@ public class CreateInvoiceActivity extends AppCompatActivity implements FrozenPr
 
     @Override
     public void onDahlsProductClick(int position) {
+        //Unhighlights previously highlighted item
         frozenListAdapter.unClick();
         localProductsAdapter.unClick();
         invoiceProductListAdapter.unClick();
 
+        //Prepares the product for be added to the list
         tempProduct = dahlsProducts.get(position);
         invoiceItemName.setText(tempProduct.getProductName());
         invoiceItemQuantityTextView.setText(tempProduct.getQuantity() + "");
-
 
 
     }
 
     @Override
     public void onLocalProductClick(int position) {
+        //Unhighlights previously highlighted item
         frozenListAdapter.unClick();
         dahlsListAdapter.unClick();
         invoiceProductListAdapter.unClick();
 
+        //Prepares the product for be added to the list
         tempProduct = localProducts.get(position);
         invoiceItemName.setText(tempProduct.getProductName());
         invoiceItemQuantityTextView.setText(tempProduct.getQuantity()+"");
-
 
     }
 
     @Override
     public void onFrozenProductClick(int position) {
+        //Unhighlights previously highlighted item
         localProductsAdapter.unClick();
         dahlsListAdapter.unClick();
         invoiceProductListAdapter.unClick();
 
+        //Prepares the product for be added to the order
         tempProduct = frozenProducts.get(position);
         invoiceItemName.setText(tempProduct.getProductName());
         invoiceItemQuantityTextView.setText(tempProduct.getQuantity()+"");
 
     }
 
+    //Checks to see if selected item is already in the order to prevent duplicates
     public boolean checkOrderList() {
         for (Product product : orderProducts) {
             if (tempProduct.getProductName().equals(product.getProductName())) {
@@ -295,6 +315,7 @@ public class CreateInvoiceActivity extends AppCompatActivity implements FrozenPr
             return false;
     }
 
+    //Sets the total of the list
     public void setTempTotal(){
         double quantity = 0;
         for (Product product : orderProducts){
@@ -304,57 +325,12 @@ public class CreateInvoiceActivity extends AppCompatActivity implements FrozenPr
     }
 
 
-
-
-    public class GetProductData implements Callable<List<Product>> {
-
-        static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-        //String url = "jdbc:mysql://172.20.10.2:3306/dahls?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=GMT";
-        String url = "jdbc:mysql://192.168.2.8:3306/dahls?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=GMT";
-        String user = "jonathonaddy";
-        String password = "student";
-
-        List<Product> productTemp = new ArrayList<>();
-
-        @Override
-        public List<Product> call() throws Exception {
-            try {
-                Class.forName("com.mysql.jdbc.Driver").newInstance();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-
-            try {
-                Connection conn = DriverManager.getConnection(url, user, password);
-                Statement stmt = conn.createStatement();
-                String sql = "Select * FROM dahls.Product";
-                ResultSet rs = stmt.executeQuery(sql);
-
-                while (rs.next()) {
-                    int productID = rs.getInt("productID");
-                    String productName = rs.getString("productName");
-                    Double productPrice = rs.getDouble("productPrice");
-                    String productType = rs.getString("productType");
-                    Product product = new Product(productID, productName, productPrice, productType);
-                    product.setQuantity(1);
-                    productTemp.add(product);
-                }
-
-                rs.close();
-                stmt.close();
-                conn.close();
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-
-            }return productTemp;
-
-        }
+    //Sends the order to the database
+    public void createOrder() throws ExecutionException, InterruptedException {
+        Order order = new Order(customer.getFirstName(), customer.getLastName(), orderProducts);
+        order.createInvoice();
     }
+
 
 
 }

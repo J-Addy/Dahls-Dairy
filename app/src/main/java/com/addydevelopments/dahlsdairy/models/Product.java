@@ -7,26 +7,30 @@ import java.text.DecimalFormat;
 
 public class Product implements Parcelable {
 
+    //Initializes variables
     private String productName;
     private double productPrice;
     private String productType;
-    private int productID;
+    private String productID;
     private int quantity;
 
+    //Generic constructor
+    public Product(){};
 
-
-    public Product(int productID, String productName, double productPrice, String productType) {
+    //Overload constructor
+    public Product(String productID, String productName, double productPrice, String productType) {
         this.productID = productID;
         this.productName = productName;
         this.productPrice = productPrice;
         this.productType = productType;
     }
 
+    //Constructor to make object parcelable
     protected Product(Parcel in) {
         productName = in.readString();
         productPrice = in.readDouble();
         productType = in.readString();
-        productID = in.readInt();
+        productID = in.readString();
         quantity = in.readInt();
     }
 
@@ -42,18 +46,13 @@ public class Product implements Parcelable {
         }
     };
 
+    //Getter and setter methods
     public String getProductName() {
         return productName;
     }
 
     public void setProductName(String productName) {
         this.productName = productName;
-    }
-
-    public double getProductPrice() {
-        DecimalFormat df = new DecimalFormat("0.00");
-        String formatted = df.format(productPrice);
-        return productPrice;
     }
 
     public void setProductPrice(double productPrice) {
@@ -68,14 +67,15 @@ public class Product implements Parcelable {
         this.productType = productType;
     }
 
-    public int getProductID() { return productID;}
+    public String getProductID() { return productID;}
 
-    public void setProductID(int productID) { this.productID = productID; }
+    public void setProductID(String productID) { this.productID = productID; }
 
     public int getQuantity() { return quantity; }
 
     public void setQuantity(int quantity) { this.quantity = quantity; }
 
+    //Gets product total price in the form of a string
     public String getTotalPrice(){
         DecimalFormat df = new DecimalFormat("0.00");
         double total = quantity * productPrice;
@@ -83,9 +83,17 @@ public class Product implements Parcelable {
         return formatted;
     }
 
+    //Gets product price in the form of a double for mathematical operations
     public double getTotal(){
         double total  = quantity * productPrice;
         return total;
+    }
+
+    //Gets a formatted version of the product price
+    public double getProductPrice() {
+        DecimalFormat df = new DecimalFormat("0.00");
+        String formatted = df.format(productPrice);
+        return productPrice;
     }
 
 
@@ -99,7 +107,7 @@ public class Product implements Parcelable {
         dest.writeString(productName);
         dest.writeDouble(productPrice);
         dest.writeString(productType);
-        dest.writeInt(productID);
+        dest.writeString(productID);
         dest.writeInt(quantity);
     }
 }

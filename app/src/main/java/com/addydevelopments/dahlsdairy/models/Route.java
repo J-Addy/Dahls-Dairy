@@ -2,13 +2,20 @@ package com.addydevelopments.dahlsdairy.models;
 
 import com.addydevelopments.dahlsdairy.controllers.RecyclerType;
 
-public class Route implements RecyclerType {
-    private String routeID;
+import java.util.Arrays;
+import java.util.List;
+
+public class Route {
+
+    //Initialize variables
     private String routeName;
     private String customerIDs;
+    private String routeID;
 
+    //Generic constructor
     public Route() {}
 
+    //Overload Constructor
     public Route(String rI, String rN, String cI){
         this.routeID = rI;
         this.routeName = rN;
@@ -16,24 +23,32 @@ public class Route implements RecyclerType {
 
     }
 
-    public String getID(){ return this.routeID;}
+    //Getter and setter methods
 
-    public String getRouteName(){ return this.routeName;}
+    public String getRouteID() {
+        return routeID;
+    }
 
-    public String getCustomerIDs(){ return this.customerIDs;}
+    public void setRouteID(String routeID) {
+        this.routeID = routeID;
+    }
 
-    public int[] getCustomerIDsArray(){
-        String[] parts = this.customerIDs.split(",");
-        int[] ints = new int[parts.length];
-        for (int i = 0; i < ints.length; i++){
-            ints[i] = Integer.parseInt(parts[i]);
-        }
-        return ints;
+    public String getRouteName() {
+        return routeName;
+    }
+
+    public void setRouteName(String routeName) {
+        this.routeName = routeName;
+    }
+
+    public String getCustomerIDs() {
+        return customerIDs;
+    }
+
+    public void setCustomerIDs(String customerIDs) {
+        this.customerIDs = customerIDs;
     }
 
 
-    @Override
-    public int getType() {
-        return RecyclerType.TYPE_ROUTE;
-    }
+
 }

@@ -18,9 +18,11 @@ public class CustomerPage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_page);
 
+        //Initialize Variables
         TextView customerNameTextView, customerAddressTextView;
         TextView customerBalanceTextView, phoneNumberTextView, notesTextView;
         Button createInvoice, applyPayment;

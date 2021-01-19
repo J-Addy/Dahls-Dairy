@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.Button;
 
 import com.addydevelopments.dahlsdairy.R;
+import com.addydevelopments.dahlsdairy.models.DBhelper;
+
+import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,14 +19,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        try{
+        try {
             this.getSupportActionBar().hide();
+        } catch (NullPointerException e) {
         }
-        catch (NullPointerException e){}
 
         //Attempts to launch routes activity
         Button routesLaunchButton = findViewById(R.id.routesButton);
-        routesLaunchButton.setOnClickListener(new View.OnClickListener(){
+        routesLaunchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent startIntent = new Intent(getApplicationContext(), RoutesActivity.class);
@@ -31,8 +34,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Attemps to launch customer list activity
         Button customerActivityButton = findViewById(R.id.customerButton);
-        customerActivityButton.setOnClickListener(new View.OnClickListener(){
+        customerActivityButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -40,5 +44,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(startIntent);
             }
         });
+
     }
 }

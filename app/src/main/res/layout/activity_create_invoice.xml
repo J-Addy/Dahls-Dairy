@@ -26,7 +26,7 @@
         android:id="@+id/localProductsRecyclerView"
         android:layout_width="@dimen/_100sdp"
         android:layout_height="@dimen/_90sdp"
-        android:layout_marginEnd="36dp"
+        android:layout_marginEnd="@dimen/_20sdp"
         android:layout_marginBottom="@dimen/_240sdp"
         android:background="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -38,14 +38,13 @@
         android:id="@+id/frozenProductsRecyclerView"
         android:layout_width="@dimen/_100sdp"
         android:layout_height="@dimen/_90sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
         android:layout_marginBottom="@dimen/_120sdp"
         android:background="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.902"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/localProductsRecyclerView"
-        app:layout_constraintVertical_bias="0.583" />
+        app:layout_constraintVertical_bias="0.602" />
 
     <TextView
         android:id="@+id/dahlsLabelTextView"
@@ -58,10 +57,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/dahlsProductsRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.791"
+        app:layout_constraintHorizontal_bias="0.749"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.984" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/localProuctLabelTextView"
@@ -74,13 +73,14 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/localProductsRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.767"
+        app:layout_constraintHorizontal_bias="0.661"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/frozenProductsTextViewLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:background="#FFFFFF"
         android:text="Frozen"
         android:textColor="#000000"
@@ -88,7 +88,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/frozenProductsRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.762"
+        app:layout_constraintHorizontal_bias="0.678"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/localProductsRecyclerView"
         app:layout_constraintVertical_bias="1.0" />
@@ -110,7 +110,7 @@
         android:id="@+id/itemQuantityTextView"
         android:layout_width="@dimen/_25sdp"
         android:layout_height="@dimen/_25sdp"
-        android:layout_marginBottom="112dp"
+        android:layout_marginBottom="152dp"
         android:background="#FFFFFF"
         android:clickable="true"
         android:cursorVisible="true"
@@ -122,7 +122,7 @@
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -196,17 +196,19 @@
 
     <TextView
         android:id="@+id/invoiceItemNameTextView"
-        android:layout_width="@dimen/_60sdp"
-        android:layout_height="@dimen/_20sdp"
+        android:layout_width="311dp"
+        android:layout_height="55dp"
         android:background="#FFFFFF"
+        android:gravity="center_horizontal|center_vertical"
         android:text="TextView"
         android:textColor="#000000"
         android:textSize="@dimen/_10sdp"
         app:layout_constraintBottom_toTopOf="@+id/itemQuantityTextView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.481"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tempOrderRecyclerView"
-        app:layout_constraintVertical_bias="0.779" />
+        app:layout_constraintVertical_bias="0.747" />
 
     <Button
         android:id="@+id/invoiceDeleteItem"
@@ -233,7 +235,7 @@
         android:textSize="@dimen/_7sdp"
         app:layout_constraintBottom_toTopOf="@+id/tempOrderRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.047"
+        app:layout_constraintHorizontal_bias="0.038"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
@@ -242,7 +244,7 @@
         android:id="@+id/completeInvoice"
         android:layout_width="@dimen/_60sdp"
         android:layout_height="@dimen/_60sdp"
-        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginBottom="72dp"
         android:backgroundTint="#84E5F1"
         android:text="@string/completeInvoice"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -250,7 +252,7 @@
         app:layout_constraintHorizontal_bias="0.919"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frozenProductsRecyclerView"
-        app:layout_constraintVertical_bias="0.084" />
+        app:layout_constraintVertical_bias="0.869" />
 
     <TextView
         android:id="@+id/tempTotalTextView"
@@ -258,11 +260,11 @@
         android:layout_height="@dimen/_15sdp"
         android:background="#FFFFFF"
         android:backgroundTint="#FFFFFF"
-        android:text="TextView"
+        android:text=""
         android:textSize="@dimen/_10sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.32"
+        app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tempOrderRecyclerView"
         app:layout_constraintVertical_bias="0.0" />
