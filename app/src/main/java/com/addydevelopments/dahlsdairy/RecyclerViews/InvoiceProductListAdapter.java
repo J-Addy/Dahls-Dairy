@@ -1,4 +1,4 @@
-package com.addydevelopments.dahlsdairy.controllers;
+package com.addydevelopments.dahlsdairy.RecyclerViews;
 
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -46,7 +46,7 @@ public class InvoiceProductListAdapter extends RecyclerView.Adapter<InvoiceProdu
             holder.tempOrderQuantityTextView.setText(0 + "");
         }
         holder.tempOrderProductNameTextView.setText(products.get(position).getProductName());
-        holder.tempOrderPrice.setText(products.get(position).getProductPrice() + "");
+        holder.tempOrderPrice.setText(products.get(position).getProductPriceString() + "");
         holder.tempOrderItemTotalTextView.setText(products.get(position).getTotalPrice());
 
         if(invoice_selected_position == position){

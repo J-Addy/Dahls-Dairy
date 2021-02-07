@@ -52,8 +52,8 @@ public class DBhelper {
         @Override
         public List<Route> call() throws Exception {
             String str = "http://10.0.2.2:8082/getRoutes";
-            URLConnection urlConn = null;
-            BufferedReader bufferedReader = null;
+            URLConnection urlConn;
+            BufferedReader bufferedReader;
             List<Route> routeList = new ArrayList<>();
 
 
@@ -62,7 +62,6 @@ public class DBhelper {
                 urlConn = url.openConnection();
                 bufferedReader = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
 
-                StringBuffer stringBuffer = new StringBuffer();
                 String line;
                 while ((line = bufferedReader.readLine()) != null) {
                     JSONObject jsonObject = new JSONObject(line);
@@ -73,7 +72,6 @@ public class DBhelper {
 
                 }
 
-                System.out.println(stringBuffer);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -88,7 +86,7 @@ public class DBhelper {
     public List<Customer> getCustomerJSONS() throws ExecutionException, InterruptedException {
 
         List<Customer> customers = new ArrayList<>();
-        ;
+
 
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         Future<List<Customer>> futures = executorService.submit(new getCustomerJSON());
@@ -107,8 +105,8 @@ public class DBhelper {
         @Override
         public List<Customer> call() throws Exception {
             String str = "http://10.0.2.2:8082/getCustomers";
-            URLConnection urlConn = null;
-            BufferedReader bufferedReader = null;
+            URLConnection urlConn;
+            BufferedReader bufferedReader;
             List<Customer> customerList = new ArrayList<>();
 
 
@@ -117,7 +115,6 @@ public class DBhelper {
                 urlConn = url.openConnection();
                 bufferedReader = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
 
-                StringBuffer stringBuffer = new StringBuffer();
                 String line;
                 while ((line = bufferedReader.readLine()) != null) {
                     JSONObject jsonObject = new JSONObject(line);
@@ -132,7 +129,7 @@ public class DBhelper {
 
                 }
 
-                System.out.println(stringBuffer);
+                System.out.println("");
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -174,8 +171,8 @@ public class DBhelper {
             string = string.replace("]","");
             string = string.replace(" ", "");
             String str = "http://10.0.2.2:8082/getCustomersByID?customerIDs=" + string.replace("\"", "'");
-            URLConnection urlConn = null;
-            BufferedReader bufferedReader = null;
+            URLConnection urlConn;
+            BufferedReader bufferedReader;
             List<Customer> customerList = new ArrayList<>();
 
 
@@ -184,7 +181,6 @@ public class DBhelper {
                 urlConn = url.openConnection();
                 bufferedReader = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
 
-                StringBuffer stringBuffer = new StringBuffer();
                 String line;
                 while ((line = bufferedReader.readLine()) != null) {
                     JSONObject jsonObject = new JSONObject(line);
@@ -212,7 +208,7 @@ public class DBhelper {
     public List<Product> getProductJSONS() throws ExecutionException, InterruptedException {
 
         List<Product> products = new ArrayList<>();
-        ;
+
 
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         Future<List<Product>> futures = executorService.submit(new getProductJSON());
@@ -231,8 +227,8 @@ public class DBhelper {
         @Override
         public List<Product> call() throws Exception {
             String str = "http://10.0.2.2:8082/getProducts";
-            URLConnection urlConn = null;
-            BufferedReader bufferedReader = null;
+            URLConnection urlConn;
+            BufferedReader bufferedReader;
             List<Product> productList = new ArrayList<>();
 
 
@@ -241,7 +237,6 @@ public class DBhelper {
                 urlConn = url.openConnection();
                 bufferedReader = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
 
-                StringBuffer stringBuffer = new StringBuffer();
                 String line;
                 while ((line = bufferedReader.readLine()) != null) {
                     JSONObject jsonObject = new JSONObject(line);
@@ -261,36 +256,36 @@ public class DBhelper {
     }
 
 
-    public void createInvoice(final Order order) throws ExecutionException, InterruptedException {
+    public void createInvoice(final Order order) {
 
 
         ExecutorService executorService = Executors.newFixedThreadPool(10);
         executorService.execute(new Runnable() {
             public void run() {
 
-                String orderMongo = "http://10.0.2.2:8082/createInvoice?lastName=" + order.getLastName() + "&firstName="
-                        + order.getFirstName() + "&products=";
+                StringBuilder orderMongo = new StringBuilder("http://10.0.2.2:8082/createInvoice?lastName=" + order.getLastName() + "&firstName="
+                        + order.getFirstName() + "&products=");
                 for (Product product: order.getProducts()){
-                    orderMongo+= removeSpaces(product.getProductName())
-                    + "," + product.getQuantity() + "," +
-                    product.getProductPrice() + ",";
+                    orderMongo.append(removeSpaces(product.getProductName())).append(",").append(product.getQuantity()).append(",").append(product.getProductPriceString()).append(",");
                 }
                 System.out.print(orderMongo);
 
                 URL url = null;
                 try {
-                    url = new URL(orderMongo);
+                    url = new URL(orderMongo.toString());
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 }
                 HttpURLConnection urlConnection = null;
                 try {
+                    assert url != null;
                     urlConnection = (HttpURLConnection) url.openConnection();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 int responseCode = 0;
                 try {
+                    assert urlConnection != null;
                     responseCode = urlConnection.getResponseCode();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -320,6 +315,125 @@ public class DBhelper {
         str = str.replace(" ", "-");
         return str;
     }
+
+    public void optimizeRoute(final Route route) throws ExecutionException, InterruptedException {
+
+
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
+        executorService.execute(new Runnable() {
+            public void run() {
+
+                String routeName = route.getRouteName();
+                routeName = routeName.replace(" ", "+");
+
+                String orderMongo = "http://10.0.2.2:8082/optimizeRoute?routeName=" + routeName;
+
+                URL url = null;
+                try {
+                    url = new URL(orderMongo);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                HttpURLConnection urlConnection = null;
+                try {
+                    assert url != null;
+                    urlConnection = (HttpURLConnection) url.openConnection();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                int responseCode = 0;
+                try {
+                    assert urlConnection != null;
+                    responseCode = urlConnection.getResponseCode();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                InputStream inputStream = null;
+                if (responseCode != HttpURLConnection.HTTP_OK) {
+                    inputStream = urlConnection.getErrorStream();
+                } else {
+                    try {
+                        inputStream = urlConnection.getInputStream();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                urlConnection.disconnect();
+
+
+            }
+        });
+
+        executorService.shutdown();
+    }
+
+    public List<Order> getOrderHistory(Customer customer) throws ExecutionException, InterruptedException {
+
+        List<Order> orderList = new ArrayList<>();
+
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        Future<List<Order>> futures = executorService.submit(new getOrderHistory(customer));
+        executorService.shutdown();
+
+        if (futures.get() != null) {
+            orderList = futures.get();
+        }
+
+
+        return orderList;
+    }
+
+    //Helper class to run on the background thread
+    class getOrderHistory implements Callable<List<Order>> {
+        //Establish variable
+        Customer customer;
+
+        //Constructor
+        public getOrderHistory(Customer customer){
+            this.customer = customer;
+        }
+
+        //Takes a string list of mongoDB Id's and formats it to send via http to webserver
+        @Override
+        public List<Order> call() throws Exception {
+            String lastName = customer.getLastName();
+            String firstName = customer.getFirstName();
+            String str = "http://10.0.2.2:8082/getCustomerOrders?lastName=" +lastName + "&firstName="+firstName;
+            URLConnection urlConn;
+            BufferedReader bufferedReader;
+            List<Order> orderList = new ArrayList<>();
+
+
+            try {
+                URL url = new URL(str);
+                urlConn = url.openConnection();
+                bufferedReader = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
+
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+
+                    JSONObject jsonObject = new JSONObject(line);
+                    Order order = new Order();
+                    order.setOrderID(jsonObject.getString("_id"));
+                    order.setLastName(jsonObject.getString("lastName"));
+                    order.setFirstName(jsonObject.getString("firstName"));
+                    order.setDate(jsonObject.getString("dateOfOrder"));
+                    order.setTotal(jsonObject.getDouble("Total"));
+                    orderList.add(order);
+
+
+                }
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return orderList;
+        }
+    }
+
 
 
 

@@ -1,4 +1,4 @@
-package com.addydevelopments.dahlsdairy.controllers;
+package com.addydevelopments.dahlsdairy.RecyclerViews;
 
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -40,7 +40,7 @@ public class FrozenProductsAdapter extends RecyclerView.Adapter<FrozenProductsAd
     @Override
     public void onBindViewHolder(@NonNull FrozenProductViewHolder holder, int position) {
         holder.invoiceProductNameTextView.setText(frozenProducts.get(position).getProductName());
-        holder.invoiceProductPriceTextView.setText((frozenProducts.get(position).getProductPrice() + ""));
+        holder.invoiceProductPriceTextView.setText((frozenProducts.get(position).getProductPriceString() + ""));
 
         if(frozen_selected_position == position){
             holder.background.setBackgroundColor(Color.parseColor("#FF00FF0A"));

@@ -25,7 +25,7 @@ public class CustomerPage extends AppCompatActivity {
         //Initialize Variables
         TextView customerNameTextView, customerAddressTextView;
         TextView customerBalanceTextView, phoneNumberTextView, notesTextView;
-        Button createInvoice, applyPayment;
+        Button createInvoice, applyPayment, orderHistory;
         ImageView googleMaps;
 
 
@@ -40,6 +40,7 @@ public class CustomerPage extends AppCompatActivity {
         phoneNumberTextView = findViewById(R.id.phoneNumberTextView);
         notesTextView = findViewById(R.id.customerNotesTextView);
 
+        assert customer != null;
         customerNameTextView.setText(customer.getLastName() + ", " + customer.getFirstName());
         customerAddressTextView.setText(customer.getAddress());
         customerBalanceTextView.setText("Balance: " + customer.getBalance());
@@ -63,6 +64,16 @@ public class CustomerPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), CreateInvoiceActivity.class);
+                intent.putExtra("Customer", customer);
+                startActivity(intent);
+            }
+        });
+
+        Button orderHistoryButton = findViewById(R.id.getOrderHistoryButton);
+        orderHistoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), OrderHistory.class);
                 intent.putExtra("Customer", customer);
                 startActivity(intent);
             }

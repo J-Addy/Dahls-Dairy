@@ -3,7 +3,6 @@ package com.addydevelopments.dahlsdairy.controllers;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,21 +10,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.addydevelopments.dahlsdairy.R;
+import com.addydevelopments.dahlsdairy.RecyclerViews.RecyclerViewMargin;
+import com.addydevelopments.dahlsdairy.RecyclerViews.RoutesRecyclerAdapter;
 import com.addydevelopments.dahlsdairy.models.DBhelper;
 import com.addydevelopments.dahlsdairy.models.Route;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 
 public class RoutesActivity extends AppCompatActivity implements RoutesRecyclerAdapter.RouteClickListener {
@@ -50,8 +43,9 @@ public class RoutesActivity extends AppCompatActivity implements RoutesRecyclerA
 
         //Hides the action bar
         try {
-            this.getSupportActionBar().hide();
+            Objects.requireNonNull(this.getSupportActionBar()).hide();
         } catch (NullPointerException e) {
+            System.out.println(e);
         }
 
         //Retrives the routes data
@@ -64,6 +58,8 @@ public class RoutesActivity extends AppCompatActivity implements RoutesRecyclerA
         }
         //Initiates recyclerview
         initRecyclerView();
+
+
 
     }
 
@@ -90,6 +86,7 @@ public class RoutesActivity extends AppCompatActivity implements RoutesRecyclerA
     public void onRouteClick(int position) {
         Intent intent = new Intent(getApplicationContext(), CustomerList.class);
         intent.putExtra("CustomerList", routeList.get(position).getCustomerIDs());
+        intent.putExtra("Route", routeList.get(position));
         startActivity(intent);
     }
 

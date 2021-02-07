@@ -1,4 +1,4 @@
-package com.addydevelopments.dahlsdairy.controllers;
+package com.addydevelopments.dahlsdairy.RecyclerViews;
 
 
 import android.content.Context;
@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.addydevelopments.dahlsdairy.R;
 import com.addydevelopments.dahlsdairy.models.Customer;
-import com.addydevelopments.dahlsdairy.models.Route;
 
 import java.util.List;
 

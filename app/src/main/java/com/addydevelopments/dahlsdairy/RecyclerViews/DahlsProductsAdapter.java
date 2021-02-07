@@ -1,4 +1,4 @@
-package com.addydevelopments.dahlsdairy.controllers;
+package com.addydevelopments.dahlsdairy.RecyclerViews;
 
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -40,7 +40,7 @@ public class DahlsProductsAdapter extends RecyclerView.Adapter<DahlsProductsAdap
     @Override
     public void onBindViewHolder(@NonNull DahlsProductViewHolder holder, int position) {
         holder.invoiceProductNameTextView.setText(dahlsProducts.get(position).getProductName());
-        holder.invoiceProductPriceTextView.setText((dahlsProducts.get(position).getProductPrice() + ""));
+        holder.invoiceProductPriceTextView.setText((dahlsProducts.get(position).getProductPriceString() + ""));
 
         if(dahls_selected_position == position){
             holder.background.setBackgroundColor(Color.parseColor("#FF00FF0A"));

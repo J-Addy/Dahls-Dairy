@@ -11,6 +11,9 @@ public class Order {
     public String firstName;
     public String lastName;
     public String date;
+
+
+    public double total;
     public List<Product> products;
 
     //Generic constructor
@@ -32,6 +35,16 @@ public class Order {
         this.orderID = orderID;
         this.products = products;
     }
+    public Order(String orderID, String firstName, String lastName, String date, List<Product> products, double total){
+        this.orderID = orderID;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.date = date;
+        this.orderID = orderID;
+        this.products = products;
+        this.total = total;
+    }
+
 
     //getters and setters
 
@@ -72,6 +85,11 @@ public class Order {
     public void setProducts(List<Product> products) {
         this.products = products;
     }
+
+    public double getTotal() { return total; }
+
+    public void setTotal(double total) { this.total = total; }
+
 
     //rMethod to create an invoice based on the order object
     public void createInvoice() throws ExecutionException, InterruptedException {

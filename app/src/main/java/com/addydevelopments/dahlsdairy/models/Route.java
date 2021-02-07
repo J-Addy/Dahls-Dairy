@@ -1,11 +1,13 @@
 package com.addydevelopments.dahlsdairy.models;
 
-import com.addydevelopments.dahlsdairy.controllers.RecyclerType;
+
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class Route {
+public class Route implements Parcelable {
 
     //Initialize variables
     private String routeName;
@@ -25,6 +27,36 @@ public class Route {
 
     //Getter and setter methods
 
+    protected Route(Parcel in) {
+        routeName = in.readString();
+        customerIDs = in.readString();
+        routeID = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(routeName);
+        dest.writeString(customerIDs);
+        dest.writeString(routeID);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Route> CREATOR = new Creator<Route>() {
+        @Override
+        public Route createFromParcel(Parcel in) {
+            return new Route(in);
+        }
+
+        @Override
+        public Route[] newArray(int size) {
+            return new Route[size];
+        }
+    };
+
     public String getRouteID() {
         return routeID;
     }
@@ -42,6 +74,7 @@ public class Route {
     }
 
     public String getCustomerIDs() {
+        customerIDs = customerIDs.replace("\"", "");
         return customerIDs;
     }
 

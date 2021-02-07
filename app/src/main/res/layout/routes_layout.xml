@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="262dp"
         android:layout_marginTop="4dp"
-        android:contentDescription="Imageview that Holds Dahl's Dairy Logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,29 +28,10 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView2"
         app:layout_constraintVertical_bias="1.0">
 
-        <Button
-            android:id="@+id/startRouteButton"
-            android:layout_width="461dp"
-            android:layout_height="88dp"
-            android:layout_marginTop="56dp"
-            android:accessibilityLiveRegion="none"
-            android:background="@color/red_main"
-            android:backgroundTintMode="screen"
-            android:ellipsize="end"
-            android:fontFamily="sans-serif-black"
-            android:text="@string/start_route"
-            android:textColor="#020202"
-            android:textSize="45sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/routesRecyclerView"
-            app:layout_constraintVertical_bias="0.0" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/routesRecyclerView"
-            android:layout_width="577dp"
-            android:layout_height="777dp"
+            android:layout_width="594dp"
+            android:layout_height="878dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -3,10 +3,8 @@ package com.addydevelopments.dahlsdairy.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.addydevelopments.dahlsdairy.controllers.RecyclerType;
 
-
-public class Customer implements Parcelable, RecyclerType {
+public class Customer implements Parcelable {
 
     //Customer Attributes
     String customerID;
@@ -18,7 +16,8 @@ public class Customer implements Parcelable, RecyclerType {
     String notes;
 
     //Generic Constructor
-    public Customer(){}
+    public Customer() {
+    }
 
     //Constructor
     public Customer(String id, String lastName, String firstName, String address, String balance, String phoneNumber, String notes) {
@@ -78,34 +77,42 @@ public class Customer implements Parcelable, RecyclerType {
         this.balance = balance;
     }
 
-    public void setPhoneNumber(String phoneNumber) {this.phoneNumber = phoneNumber;}
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
-    public void setNotes(String notes) {this.notes = notes;}
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
 
 
     public String getCustomerID() {
         return customerID;
     }
 
-    public String getLastName(){
+    public String getLastName() {
         return lastName;
     }
 
-    public String getFirstName(){
+    public String getFirstName() {
         return firstName;
     }
 
-    public String getAddress(){
+    public String getAddress() {
         return address;
     }
 
-    public String getBalance(){
+    public String getBalance() {
         return balance;
     }
 
-    public String getPhoneNumber() {return phoneNumber;}
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 
-    public String getNotes() {return notes;}
+    public String getNotes() {
+        return notes;
+    }
 
     @Override
     public int describeContents() {
@@ -124,8 +131,9 @@ public class Customer implements Parcelable, RecyclerType {
         dest.writeString(notes);
     }
 
-    @Override
-    public int getType() {
-        return RecyclerType.TYPE_CUSTOMER;
+    public String formatAddressforRouteOptimization(){
+        address = address.replace(" ", "%2C");
+        return address;
     }
+
 }

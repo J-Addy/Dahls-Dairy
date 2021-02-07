@@ -10,6 +10,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.addydevelopments.dahlsdairy.RecyclerViews.DahlsProductsAdapter;
+import com.addydevelopments.dahlsdairy.RecyclerViews.FrozenProductsAdapter;
+import com.addydevelopments.dahlsdairy.RecyclerViews.InvoiceProductListAdapter;
+import com.addydevelopments.dahlsdairy.RecyclerViews.LocalProductsAdapter;
+import com.addydevelopments.dahlsdairy.RecyclerViews.RecyclerViewMargin;
 import com.addydevelopments.dahlsdairy.models.Customer;
 import com.addydevelopments.dahlsdairy.models.DBhelper;
 import com.addydevelopments.dahlsdairy.models.Order;

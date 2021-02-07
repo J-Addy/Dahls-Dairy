@@ -1,4 +1,4 @@
-package com.addydevelopments.dahlsdairy.controllers;
+package com.addydevelopments.dahlsdairy.RecyclerViews;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,14 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.addydevelopments.dahlsdairy.R;
-import com.addydevelopments.dahlsdairy.models.Customer;
 import com.addydevelopments.dahlsdairy.models.Route;
 
 import java.util.List;
 
 public class RoutesRecyclerAdapter extends RecyclerView.Adapter<RoutesRecyclerAdapter.ViewHolder> {
-
-    private static final String TAG = "RoutesRecyclerAdapter";
 
     private List<Route> mRouteInfo;
     private RouteClickListener mRouteClickListener;
@@ -50,7 +47,7 @@ public class RoutesRecyclerAdapter extends RecyclerView.Adapter<RoutesRecyclerAd
         return mRouteInfo.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView routeInfoHolder;
         RouteClickListener routeClickListener;

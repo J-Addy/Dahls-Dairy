@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controllers.CustomerList">
+    tools:context=".controllers.OrderHistory">
 
     <ImageView
         android:id="@+id/imageView2"
@@ -29,38 +29,16 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView2"
         app:layout_constraintVertical_bias="0.954">
 
-        <Button
-            android:id="@+id/optimizeRouteButton"
-            android:layout_width="461dp"
-            android:layout_height="88dp"
-            android:layout_marginTop="56dp"
-            android:layout_marginBottom="80dp"
-            android:accessibilityLiveRegion="none"
-            android:background="@color/red_main"
-            android:backgroundTintMode="screen"
-            android:ellipsize="end"
-            android:fontFamily="sans-serif-black"
-            android:text="@string/optimizeRoute"
-            android:textColor="#020202"
-            android:textSize="45sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/routesRecyclerView"
-            app:layout_constraintVertical_bias="0.723" />
-
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/customerRecyclerView"
-            android:layout_width="588dp"
-            android:layout_height="697dp"
+            android:id="@+id/orderHistoryRecyclerView"
+            android:layout_width="727dp"
+            android:layout_height="841dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.47"
+            app:layout_constraintHorizontal_bias="0.506"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.129" />
-
+            app:layout_constraintVertical_bias="0.697" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

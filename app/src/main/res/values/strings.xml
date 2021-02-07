@@ -18,4 +18,7 @@
     <string name="addItemToOrder">Add Item</string>
     <string name="invoiceDeleteItem">Delete Item</string>
     <string name="completeInvoice">Complete Invoice</string>
+    <string name="optimizeRoute">Optimize Route</string>
+    <string name="orderHisotry">Get Order History</string>
+    <string name="notes">Notes: </string>
 </resources>

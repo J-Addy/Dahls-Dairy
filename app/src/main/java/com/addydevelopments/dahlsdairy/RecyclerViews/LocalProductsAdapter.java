@@ -1,4 +1,4 @@
-package com.addydevelopments.dahlsdairy.controllers;
+package com.addydevelopments.dahlsdairy.RecyclerViews;
 
 
 import android.graphics.Color;
@@ -41,7 +41,7 @@ public class LocalProductsAdapter extends RecyclerView.Adapter<LocalProductsAdap
     @Override
     public void onBindViewHolder(@NonNull LocalProductViewHolder holder, int position) {
         holder.invoiceProductNameTextView.setText(localProducts.get(position).getProductName());
-        holder.invoiceProductPriceTextView.setText((localProducts.get(position).getProductPrice() + ""));
+        holder.invoiceProductPriceTextView.setText((localProducts.get(position).getProductPriceString() + ""));
 
         if(local_selected_position == position){
             holder.background.setBackgroundColor(Color.parseColor("#FF00FF0A"));

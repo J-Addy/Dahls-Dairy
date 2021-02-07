@@ -15,14 +15,15 @@ public class Product implements Parcelable {
     private int quantity;
 
     //Generic constructor
-    public Product(){};
+    public Product(){}
 
     //Overload constructor
-    public Product(String productID, String productName, double productPrice, String productType) {
+    public Product(String productID, String productName, double productPrice, String productType, int quantity) {
         this.productID = productID;
         this.productName = productName;
         this.productPrice = productPrice;
         this.productType = productType;
+        this.quantity = quantity;
     }
 
     //Constructor to make object parcelable
@@ -59,6 +60,8 @@ public class Product implements Parcelable {
         this.productPrice = productPrice;
     }
 
+    public double getProductPrice(){ return productPrice; }
+
     public String getProductType() {
         return productType;
     }
@@ -90,10 +93,10 @@ public class Product implements Parcelable {
     }
 
     //Gets a formatted version of the product price
-    public double getProductPrice() {
+    public String getProductPriceString() {
         DecimalFormat df = new DecimalFormat("0.00");
         String formatted = df.format(productPrice);
-        return productPrice;
+        return formatted;
     }
 
 
