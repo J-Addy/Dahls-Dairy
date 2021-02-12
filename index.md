@@ -32,6 +32,7 @@ The route optimization feature is meant to save companies time and costs by leve
 
 ```
 
-### Simple. Intuitive. Custom.
+### Simple. Intuitive. 
 
-This application is meant to bridge the gap between the business world and normal users.  The average person doesn't want a million bells and whistles.  We provide an app that just works, and isn't overly complicated.  
+This application is meant to bridge the gap between business and the user.  Not everyone wants an overly complicated application with a million bells and whistles they will never use.  This application just works. 
+
