@@ -1,37 +1,37 @@
-## Welcome to GitHub Pages
+## Welcome to my Delivery Route Tracker/Optimizer/Invoicing Application
 
-You can use the [editor on GitHub](https://github.com/J-Addy/Dahls-Dairy/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+Dahl's Dairy is an application custom built for a local glass bottle milk delivery.  The purpose of this application is to organize delivery routes, customer information, invoice customers, and to optimize the route stop for effeciency.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### Google Maps API
 
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+The route optimization feature is meant to save companies time and costs by leveageing Google's Maps API to iteratively search through their a list of customeres and rearranging them so deliveries can be made in the most time effecient manner.
 
 ```markdown
-Syntax highlighted code block
+#Features
 
-# Header 1
-## Header 2
-### Header 3
+##Route Tracking
 
-- Bulleted
-- List
+- Easily Organize Routes
+- Rearrange on the fly
 
-1. Numbered
-2. List
+##Route Optimizaiton
 
-**Bold** and _Italic_ and `Code` text
+- One Click Route Optimizating
+- Updates the route list at the database level so optimization is permanent
 
-[Link](url) and ![Image](src)
+##Customer Information
+
+- Access all customer information easily in a easy to use UI
+- Store customer notes for future deliveries
+- Retrieve past orders via customer name
+
+##Customer Invoiceing
+
+- Add, remove, or update products to create an order
+- All from one screen in an organized and effecient manner
+
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+### Simple. Intuitive. Custom.
 
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/J-Addy/Dahls-Dairy/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+This application is meant to bridge the gap between the business world and normal users.  The average person doesn't want a million bells and whistles.  We provide an app that just works, and isn't overly complicated.  
