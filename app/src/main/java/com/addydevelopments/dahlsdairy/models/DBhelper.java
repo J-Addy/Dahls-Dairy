@@ -100,42 +100,22 @@ public class DBhelper {
         return customers;
     }
 
-    //Helper class to run on the background thread
-    class getCustomerJSON implements Callable<List<Customer>> {
-        @Override
-        public List<Customer> call() throws Exception {
-            String str = "http://10.0.2.2:8082/getCustomers";
-            URLConnection urlConn;
-            BufferedReader bufferedReader;
-            List<Customer> customerList = new ArrayList<>();
+    // Gets a list of products from the database
+    public List<Product> getProductJSONS() throws ExecutionException, InterruptedException {
+
+        List<Product> products = new ArrayList<>();
 
 
-            try {
-                URL url = new URL(str);
-                urlConn = url.openConnection();
-                bufferedReader = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        Future<List<Product>> futures = executorService.submit(new getProductJSON());
+        executorService.shutdown();
 
-                String line;
-                while ((line = bufferedReader.readLine()) != null) {
-                    JSONObject jsonObject = new JSONObject(line);
-                    Customer customer = new Customer();
-                    customer.setCustomerID(jsonObject.getString("_id"));
-                    customer.setLastName(jsonObject.getString("lastName"));
-                    customer.setFirstName(jsonObject.getString("firstName"));
-                    customer.setPhoneNumber(jsonObject.getString("phoneNumber"));
-                    customer.setAddress(jsonObject.getString("address"));
-                    customer.setBalance(jsonObject.getString("balance"));
-                    customerList.add(customer);
-
-                }
-
-                System.out.println("");
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return customerList;
+        if (futures.get() != null) {
+            products = futures.get();
         }
+
+
+        return products;
     }
 
     public List<Customer> getCustomerJSONSByName(String customerIDS) throws ExecutionException, InterruptedException {
@@ -204,22 +184,62 @@ public class DBhelper {
         }
     }
 
+    //Creates an invoice from an order object
+    public int createInvoice(final Order order) {
+        final int[] httpResponse = {0};
 
-    public List<Product> getProductJSONS() throws ExecutionException, InterruptedException {
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
+        executorService.execute(new Runnable() {
+            public void run() {
 
-        List<Product> products = new ArrayList<>();
+                StringBuilder orderMongo = new StringBuilder("http://10.0.2.2:8082/createInvoice?lastName=" + order.getLastName() + "&firstName="
+                        + order.getFirstName() + "&products=");
+                for (Product product : order.getProducts()) {
+                    orderMongo.append(removeSpaces(product.getProductName())).append(",").append(product.getQuantity()).append(",").append(product.getProductPriceString()).append(",");
+                }
+                System.out.print(orderMongo);
+
+                URL url = null;
+                try {
+                    url = new URL(orderMongo.toString());
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                HttpURLConnection urlConnection = null;
+                try {
+                    assert url != null;
+                    urlConnection = (HttpURLConnection) url.openConnection();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                int responseCode = 0;
+
+                try {
+                    assert urlConnection != null;
+                    responseCode = urlConnection.getResponseCode();
+                    httpResponse[0] = responseCode;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                InputStream inputStream = null;
+                if (responseCode != HttpURLConnection.HTTP_OK) {
+                    inputStream = urlConnection.getErrorStream();
+                } else {
+                    try {
+                        inputStream = urlConnection.getInputStream();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                urlConnection.disconnect();
 
 
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        Future<List<Product>> futures = executorService.submit(new getProductJSON());
+            }
+        });
+
         executorService.shutdown();
-
-        if (futures.get() != null) {
-            products = futures.get();
-        }
-
-
-        return products;
+        return httpResponse[0];
     }
 
     //Helper class to run on the background thread
@@ -255,67 +275,7 @@ public class DBhelper {
         }
     }
 
-
-    public void createInvoice(final Order order) {
-
-
-        ExecutorService executorService = Executors.newFixedThreadPool(10);
-        executorService.execute(new Runnable() {
-            public void run() {
-
-                StringBuilder orderMongo = new StringBuilder("http://10.0.2.2:8082/createInvoice?lastName=" + order.getLastName() + "&firstName="
-                        + order.getFirstName() + "&products=");
-                for (Product product: order.getProducts()){
-                    orderMongo.append(removeSpaces(product.getProductName())).append(",").append(product.getQuantity()).append(",").append(product.getProductPriceString()).append(",");
-                }
-                System.out.print(orderMongo);
-
-                URL url = null;
-                try {
-                    url = new URL(orderMongo.toString());
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
-                HttpURLConnection urlConnection = null;
-                try {
-                    assert url != null;
-                    urlConnection = (HttpURLConnection) url.openConnection();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                int responseCode = 0;
-                try {
-                    assert urlConnection != null;
-                    responseCode = urlConnection.getResponseCode();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                InputStream inputStream = null;
-                if (responseCode != HttpURLConnection.HTTP_OK) {
-                    inputStream = urlConnection.getErrorStream();
-                } else {
-                    try {
-                        inputStream = urlConnection.getInputStream();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-                urlConnection.disconnect();
-
-
-            }
-        });
-
-        executorService.shutdown();
-    }
-
-    //Method to remove spaces from string
-    public String removeSpaces(String str){
-        str = str.replace(" ", "-");
-        return str;
-    }
-
+    //API Call for route optimization
     public void optimizeRoute(final Route route) throws ExecutionException, InterruptedException {
 
 
@@ -368,6 +328,13 @@ public class DBhelper {
         executorService.shutdown();
     }
 
+    //Method to remove spaces from string
+    public String removeSpaces(String str) {
+        str = str.replace(" ", "-");
+        return str;
+    }
+
+    //API call to get a customer's order history
     public List<Order> getOrderHistory(Customer customer) throws ExecutionException, InterruptedException {
 
         List<Order> orderList = new ArrayList<>();
@@ -385,12 +352,50 @@ public class DBhelper {
     }
 
     //Helper class to run on the background thread
+    class getCustomerJSON implements Callable<List<Customer>> {
+        @Override
+        public List<Customer> call() throws Exception {
+            String str = "http://10.0.2.2:8082/getCustomers";
+            URLConnection urlConn;
+            BufferedReader bufferedReader;
+            List<Customer> customerList = new ArrayList<>();
+
+
+            try {
+                URL url = new URL(str);
+                urlConn = url.openConnection();
+                bufferedReader = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
+
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    JSONObject jsonObject = new JSONObject(line);
+                    Customer customer = new Customer();
+                    customer.setCustomerID(jsonObject.getString("_id"));
+                    customer.setLastName(jsonObject.getString("lastName"));
+                    customer.setFirstName(jsonObject.getString("firstName"));
+                    customer.setPhoneNumber(jsonObject.getString("phoneNumber"));
+                    customer.setAddress(jsonObject.getString("address"));
+                    customer.setBalance(jsonObject.getString("balance"));
+                    customerList.add(customer);
+
+                }
+
+                System.out.println();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return customerList;
+        }
+    }
+
+    //Helper class to run on the background thread
     class getOrderHistory implements Callable<List<Order>> {
         //Establish variable
         Customer customer;
 
         //Constructor
-        public getOrderHistory(Customer customer){
+        public getOrderHistory(Customer customer) {
             this.customer = customer;
         }
 
@@ -433,9 +438,6 @@ public class DBhelper {
             return orderList;
         }
     }
-
-
-
 
 
 }

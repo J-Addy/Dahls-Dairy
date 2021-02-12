@@ -37,24 +37,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/wholesaleButton"
-            android:layout_width="461dp"
-            android:layout_height="88dp"
-            android:layout_marginTop="48dp"
-            android:accessibilityLiveRegion="none"
-            android:background="@color/red_main"
-            android:backgroundTintMode="screen"
-            android:ellipsize="end"
-            android:fontFamily="sans-serif-black"
-            android:text="@string/whole_sale_button"
-            android:textColor="#020202"
-            android:textSize="45sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.477"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/routesButton" />
-
-        <Button
             android:id="@+id/customerButton"
             android:layout_width="461dp"
             android:layout_height="88dp"
@@ -70,7 +52,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.477"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/wholesaleButton" />
+            app:layout_constraintTop_toBottomOf="@+id/routesButton" />
 
         <Button
             android:id="@+id/productsButton"

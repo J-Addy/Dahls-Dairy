@@ -1,16 +1,13 @@
 package com.addydevelopments.dahlsdairy.controllers;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.addydevelopments.dahlsdairy.R;
-import com.addydevelopments.dahlsdairy.models.DBhelper;
+import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.concurrent.ExecutionException;
+import com.addydevelopments.dahlsdairy.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Hides the action bar
         try {
             this.getSupportActionBar().hide();
         } catch (NullPointerException e) {
